@@ -48,8 +48,6 @@ VALIDATE $? "enable nodejs 20"
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "Installing nodejs" 
 
-cd /app
-
 npm install  &>>$LOG_FILE
 VALIDATE $? "Installing node packages" 
 }

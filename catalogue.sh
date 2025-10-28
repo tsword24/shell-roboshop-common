@@ -2,8 +2,9 @@
 
 source ./common.sh
 app_name=catalogue
-nodejs_installation
+check_root
 app_setup
+nodejs_installation
 systemd_setup
 
 cp $DIRECTORY/mongo.repo /etc/yum.repos.d/mongo.repo
