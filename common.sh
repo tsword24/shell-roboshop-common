@@ -12,6 +12,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 DIRECTORY=$PWD
 START_TIME=$(date +%s)
 MONGODB_DOMAIN=mongodb.ssnationals.fun
+MYSQL_DOMAIN=mysql.ssnationals.fun
 
 mkdir -p $LOGS_FOLDER
 echo "Script Started at $(date)" | tee -a $LOG_FILE
@@ -34,8 +35,8 @@ VALIDATE(){
 
 print_total_time(){
     END_TIME=$(date +%s)
-    TOTAL_TIME=$(( $END_TIME -$START_TIME ))
-    echo -e "Script excecuted in $Y Seconds $N"
+    TOTAL_TIME=$(( $END_TIME - $START_TIME ))
+    echo -e "Script executed in: $Y $TOTAL_TIME Seconds $N"
 }
 
 nodejs_installation(){
@@ -101,4 +102,25 @@ VALIDATE $? "starting  the $app_name"
 app_restart(){
     systemctl restart $app_name
     VALIDATE $? "restarting the $app_name"
+}
+
+
+java_installation(){
+    dnf install maven -y &>>$LOG_FILE
+VALIDATE $? "Installing Maven"
+
+mvn clean package  &>>$LOG_FILE
+VALIDATE $? "Maven cleaning package"
+
+mv target/shipping-1.0.jar shipping.jar &>>$LOG_FILE
+VALIDATE $? "Maven"
+}
+
+python_installation(){
+    dnf install python3 gcc python3-devel -y  &>>$LOG_FILE
+    VALIDATE $? "INstalling python 3"
+
+    pip3 install -r requirements.txt &>>$LOG_FILE
+    VALIDATE $? "INstalling python dependencies"
+
 }
