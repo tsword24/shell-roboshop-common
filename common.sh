@@ -9,6 +9,7 @@ USERID=$(id -u)
 LOGS_FOLDER="/var/log/shell-roboshop"
 SCRIPT_NAME="$( echo $0 | cut -d "." -f1)" #to get the script name
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
+DIRECTORY=$PWD
 START_TIME=$(date +%s)
 MONGODB_DOMAIN=mongodb.ssnationals.fun
 
